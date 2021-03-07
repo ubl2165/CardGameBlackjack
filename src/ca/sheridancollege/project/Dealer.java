@@ -10,6 +10,12 @@ package ca.sheridancollege.project;
  */
 public class Dealer extends Player {
     
+    //fields
+    private Hand hand;
+    private int chips = 10000;
+    
+    
+    
     public Dealer(String name) {
         super(name);
                 

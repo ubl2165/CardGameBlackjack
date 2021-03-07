@@ -8,8 +8,6 @@ package ca.sheridancollege.project;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import ca.sheridancollege.project.BlackjackCard.Suit;
-import ca.sheridancollege.project.BlackjackCard.Value;
 
 /**
  * A concrete class that represents any grouping of cards for a Game. HINT, you
@@ -28,7 +26,7 @@ public class GroupOfCards {
 
     public GroupOfCards(int size) {
         this.size = size;
-        generateCards();
+        
     }
 
     /**
@@ -44,17 +42,7 @@ public class GroupOfCards {
         Collections.shuffle(cards);
     }
 
-    /**
-     * Create full set of cards.
-     */
-    private void generateCards() {
-        for (Value v : Value.values()) {
-            for (Suit s : Suit.values()) {
-                this.cards.add(new BlackjackCard(v, s));
-            }
-        }
 
-    }
 
     /**
      * @return the size of the group of cards

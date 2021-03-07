@@ -11,11 +11,13 @@ package ca.sheridancollege.project;
  */
 public class Blackjack extends Game {
     
-    Blackjack() {
-        super("Blackjack");
-    
+    Blackjack(String name) {
+        super(name);
+            
     }
     
+    public void bet(){
+    }
     
     public void deal() {
         
@@ -34,6 +36,7 @@ public class Blackjack extends Game {
      * Play the game. This might be one method or many method calls depending on your game.
      */
     public void play() {
+        
         
     };
 
