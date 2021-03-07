@@ -7,7 +7,7 @@ package ca.sheridancollege.project;
 
 /**
  *
- * @author plumh
+ * @author Ji LI 2021
  */
 public class Blackjack extends Game {
     
@@ -18,7 +18,7 @@ public class Blackjack extends Game {
     
     
     public void deal() {
-    
+        
     }
     
     public void stand()  {
@@ -30,11 +30,11 @@ public class Blackjack extends Game {
     
     }
     
-        /**
+    /**
      * Play the game. This might be one method or many method calls depending on your game.
      */
     public void play() {
-    
+        
     };
 
     /**
