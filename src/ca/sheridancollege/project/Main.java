@@ -24,9 +24,10 @@ public class Main {
         game.getPlayers().add(gambler);
         
         //create a new deck
-        GroupOfCards deck = new Deck(); 
+        GroupOfCards deck = new Deck();
         
-        System.out.println(Arrays.toString(deck.getCards().toArray()));
+        
+        System.out.println(deck.cards.size());
         
     }
     
