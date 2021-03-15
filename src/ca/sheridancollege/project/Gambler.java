@@ -1,31 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ca.sheridancollege.project;
 
 import java.util.Scanner;
 
 /**
  *
- * @author plumh
+ * This class to define Gambler class, the actual player of Blackjack Game.
+ * Extents Player class.
+ *
+ * @author Ji Li 2021 March
  */
 public class Gambler extends Player {
 
-    //fields
-//    private int chips = 100;
-//    private int bet = 0;
+    /**
+     * Fields.
+     */
     protected Hand _hand;
     private Deck _deck;
-    private boolean _isBust;
-    private boolean _isBlackjack;
-    private boolean _isStand;//player's turn is over.
     private int _score;//for deciding winner
     private Scanner input = new Scanner(System.in);
 
     /**
-     * constructor
+     * Constructor
      *
      * @param name
      *
@@ -35,60 +30,44 @@ public class Gambler extends Player {
         this._hand = new Hand(0);
 
     }
-//ToDo 
-//    public int getChips() {
-//        return chips;
-//    }
-//
-//    public Hand getHand() {
-//        return _hand;
-//    }
-//
-//    public void setChips(int chips) {
-//        this.chips = chips;
-//    }
-//
-//    public void setHand(Hand hand) {
-//        this._hand = hand;
-//    }
-//    public void placeBet(int bet) {
-//        if(this.chips > bet)
-//        {
-//            this.chips -= bet;
-//            this.bet = bet;
-//        }else{
-//            System.out.println("Insufficient fund");
-//        }
-//    }
-    public void setDeck(Deck _deck) {
-
-        this._deck = _deck;
-    }
-
+    
+    /**
+     * This method check if it is Blackjack only when first two cards are dealt. 
+     * @return Boolean value 
+     */    
     public boolean isBlackjack() {
         //return ture only player receives 21 on first and second card
         //that means one of the two card is an Ace, and count as 11 
-        return this._hand.getHandValue()== 21
+        return this._hand.getHandValue() == 21
                 && this._hand.getSize() == 2;
     }
-
+    
+    /**
+     * This method check if sum of card value over 21.
+     * @return Boolean value
+     */    
     public boolean isBust() {
 
-        //return true only if computeValue > 21, 
-        //becasuse alternative value always be equal or greater. 
-        return this._hand.getHandValue()> 21;
-    }
-
-    //show all the cards in the hand
-    public String displayHand() {
-        return this.getName() + "'s hand: " + 
-                this._hand.cards.toString() + " Value: " +
-                this._hand.getHandValue();
+        return this._hand.getHandValue() > 21;
     }
 
     /**
-     * The method to be overridden when you subclass the Player class with your
-     * specific type of Player and filled in with logic to play your game.
+     * This method displays the full hand of gambler
+     * @return String of full hand 
+     */
+    public String displayHand() {
+        return this.getName() + "'s hand: "
+                + this._hand.cards.toString() + " Value: "
+                + this._hand.getHandValue();
+    }
+
+    /**
+     * This method applies Player(gambler)'s rules to play in Blackjack.
+     * 1. If gambler gets Blackjack at beginning, player gets score 100 
+     * only less than the dealer's blackjack score.
+     * 2. If gambler gets bust, gambler gets -1 score, less than dealer's bust. 
+     * 3. Gambler can choose hit or stand when is not bust.
+     * 
      */
     @Override
     public void play() {
@@ -111,33 +90,45 @@ public class Gambler extends Player {
                 System.out.println("Hit or Stand?\n1. Hit\n2. stand");
 
                 answer = input.nextInt();
-                
-                if (answer == 1)
+
+                if (answer == 1) {
                     this._hand.addCard(this._deck.distributeCard());
+                }
 
                 if (this.isBust()) {
                     System.out.println("**********Bust!!!**************");
                     this._score = -1;
                 } else {
                     this._score = this._hand.getHandValue();
-                    
+
                 }
                 System.out.println(this.displayHand());
-                
 
             } while (!this.isBust() && answer != 2);
 
-            
         }
-        
+
         System.out.println(this._score);//for test only
 
     }
 
+     /**
+     * Setter for _deck. 
+     * Invoking from BlackjackGame.
+     * In play() can perform hit function: add card to hand from deck.
+     * @param _deck 
+     */
+    public void setDeck(Deck _deck) {
+
+        this._deck = _deck;
+    }
+    
+    /**
+     * Getter for _score.
+     * @return integer score for deciding winner.
+     */
     public int getScore() {
         return _score;
     }
-    
-    
 
 }

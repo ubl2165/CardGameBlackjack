@@ -1,25 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ca.sheridancollege.project;
 
 import java.util.ArrayList;
-//import ca.sheridancollege.project.BlackjackCard.Suit;
-//import ca.sheridancollege.project.BlackjackCard.Value;
 
 /**
- *
- * @author plumh
+ * A class for cards on hand
+ * @author Ji Li 2021 March
  */
 public class Hand extends GroupOfCards {
 
+    /**
+     * Fields.
+     * _numberOfAce for compute
+     */
     private int _numberOfAce;
     private int _handValue;
 
 
-
+    /**
+     * Constructor
+     * @param size 
+     */
     public Hand(int size) {
         super(size);
 
@@ -31,14 +31,17 @@ public class Hand extends GroupOfCards {
         this._handValue = 0;
         _numberOfAce = 0;
     }
-
+    
+    /**
+     * Method to add card to hand from deck.
+     * Working with distributeCard() in Deck class.
+     * Each time a card added, automatically compute the hand value.
+     * @param card 
+     */
     public void addCard(Card card) {
         //cards add 1
         cards.add(card);
 
-//        if(card instanceof BlackjackCard) {
-//            this._bjCards.add((BlackjackCard)card);
-//        }
         //size add 1        
         this.setSize(cards.size());
 
@@ -53,25 +56,22 @@ public class Hand extends GroupOfCards {
 
     }
 
-//    public void addCard(BlackjackCard card) {
-//        //cards add 1
-//        this._bjCards.add(card);
-//
-//        //size add 1        
-//        this.setSize(this._bjCards.size());
-//
-//    }
+    /**
+     * Method to calculate the hand's value according to Blackjack game rule.
+     */
     private void computeValue() {
         
-        //set hand value to zero, otherwise there will be incorrect result.
+        //First, set hand value to zero, otherwise there will be incorrect result.
         this._handValue = 0;
-
+        
+        //Secondly, sum up all the non-ACE cards' value
         for (int i = 0; i < cards.size(); i++) {
             if (((BlackjackCard)cards.get(i)).getValue() != BlackjackCard.Value.ACE) {
                 this._handValue += ((BlackjackCard)cards.get(i)).getValue().getCardValue();
             }
         }
         
+        //Finally, add Ace value accordingly
         for (int i = 0; i < this._numberOfAce; i++) {
             
             if(this._handValue + BlackjackCard.Value.ACE.getAlternativeValue() > 21) {
@@ -83,7 +83,10 @@ public class Hand extends GroupOfCards {
 
     }
 
-
+    /**
+     * Getter for hand value.
+     * @return 
+     */
     public int getHandValue() {
         return _handValue;
     }
