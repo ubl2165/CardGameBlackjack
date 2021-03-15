@@ -12,17 +12,57 @@ package ca.sheridancollege.project;
 public class BlackjackCard extends Card {
 
     public enum Suit {
-        HEARTS, CLUBS, SPADES, DIAMONDS
+        HEARTS("hearts"), CLUBS("clubs"), SPADES("spades"), DIAMONDS("diamonds");
+        
+        private String  _suitName;
+        
+        Suit(String name){
+            this._suitName = name;
+        }
+        
+        public String getSuitName(){
+            return this._suitName;
+        }
+        
     }
 
     public enum Value {
-        ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE,
-        TEN, JACK, QUEEN, KING
+        ACE("ace", 1, 11), TWO("2", 2), THREE("3", 3), FOUR("4", 4), 
+        FIVE("5", 5), SIX("6", 6), SEVEN("7", 7), EIGHT("8", 8), NINE("9", 9),
+        TEN("10", 10), JACK("jack", 10), QUEEN("queen", 10), KING("king", 10);
+        
+        private String _valueName;
+        private int _cardValue;
+        private int _alternativeValue;
+        
+        Value(String name, int cardValue) {
+            this._valueName = name;
+            this._cardValue = cardValue;
+            this._alternativeValue = -100;//for test only
+        }
+        
+        Value(String name, int cardValue, int alternativeValue){
+            
+            this._valueName = name;
+            this._cardValue = cardValue; 
+            this._alternativeValue = alternativeValue;
+      
+        }
+
+        public String getValueName() {
+            return _valueName;
+        }
+
+        public int getCardValue() {
+            return _cardValue;
+        }
+
+        public int getAlternativeValue() {
+            return _alternativeValue;
+        }
+    
     }
 
-//    public enum Special {
-//        BACK
-//    };
 
     /**
      * Field
@@ -59,6 +99,6 @@ public class BlackjackCard extends Card {
 
     @Override
     public String toString() {
-        return this.value.toString() + " of " + this.suit.toString();
+        return this.value.getValueName() + " of " + this.suit.getSuitName();
     }
 }

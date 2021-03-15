@@ -2,6 +2,7 @@ package ca.sheridancollege.project;
 
 import java.util.ArrayList;
 
+
 /**
  * extends class GroupOfCards
  *
@@ -9,22 +10,32 @@ import java.util.ArrayList;
  */
 public class Deck extends GroupOfCards {
 
-    public Deck() {
-        super(52);
+    private int _setOfCards;
+
+    public Deck(int setOfCards) {
+        super(52 * setOfCards);
+        this._setOfCards = setOfCards;
         cards = new ArrayList<>();
-        generateNewDeck();
+        generateNewDeck(this._setOfCards);
     }
 
     /**
      * Create full set of cards for blackjack.
      */
-    private void generateNewDeck() {
-        for (BlackjackCard.Value v : BlackjackCard.Value.values()) {
-            for (BlackjackCard.Suit s : BlackjackCard.Suit.values()) {
-                cards.add(new BlackjackCard(v, s));
+    private void generateNewDeck(int sets) {
+        for (int i = 0; i < sets; i++) {
+            for (BlackjackCard.Value v : BlackjackCard.Value.values()) {
+                for (BlackjackCard.Suit s : BlackjackCard.Suit.values()) {
+                    cards.add(new BlackjackCard(v, s));
+                }
             }
         }
+    }
 
+    //Distribute card
+    public Card distributeCard() {
+        this.setSize(this.getSize() - 1);
+        return cards.remove(0);
     }
 
 }
