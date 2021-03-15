@@ -25,8 +25,9 @@ public class Deck extends GroupOfCards {
      */
     public Deck(int setOfCards) {
         super(52 * setOfCards);
+        
         this._setOfCards = setOfCards;
-        cards = new ArrayList<>();
+
         generateNewDeck(this._setOfCards);
     }
 
@@ -40,7 +41,7 @@ public class Deck extends GroupOfCards {
         for (int i = 0; i < sets; i++) {
             for (BlackjackCard.Value v : BlackjackCard.Value.values()) {
                 for (BlackjackCard.Suit s : BlackjackCard.Suit.values()) {
-                    cards.add(new BlackjackCard(v, s));
+                    getCards().add(new BlackjackCard(v, s));
                 }
             }
         }
@@ -53,7 +54,7 @@ public class Deck extends GroupOfCards {
      */
     public Card distributeCard() {
         this.setSize(this.getSize() - 1);
-        return cards.remove(0);
+        return getCards().remove(0);
     }
 
 }

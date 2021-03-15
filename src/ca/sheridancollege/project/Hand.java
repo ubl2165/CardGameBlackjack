@@ -23,8 +23,7 @@ public class Hand extends GroupOfCards {
     public Hand(int size) {
         super(size);
 
-//        this._bjCards = new ArrayList<>();
-        cards = new ArrayList<>();
+
 
 //        cards.addAll(bjCards);
 
@@ -40,10 +39,10 @@ public class Hand extends GroupOfCards {
      */
     public void addCard(Card card) {
         //cards add 1
-        cards.add(card);
+        getCards().add(card);
 
         //size add 1        
-        this.setSize(cards.size());
+        this.setSize(getCards().size());
 
         //if is a Ace ,numberOfAce add 1
         if (card instanceof BlackjackCard && ((BlackjackCard) card).getValue() == BlackjackCard.Value.ACE) {
@@ -65,9 +64,9 @@ public class Hand extends GroupOfCards {
         this._handValue = 0;
         
         //Secondly, sum up all the non-ACE cards' value
-        for (int i = 0; i < cards.size(); i++) {
-            if (((BlackjackCard)cards.get(i)).getValue() != BlackjackCard.Value.ACE) {
-                this._handValue += ((BlackjackCard)cards.get(i)).getValue().getCardValue();
+        for (int i = 0; i < getCards().size(); i++) {
+            if (((BlackjackCard)getCards().get(i)).getValue() != BlackjackCard.Value.ACE) {
+                this._handValue += ((BlackjackCard)getCards().get(i)).getValue().getCardValue();
             }
         }
         

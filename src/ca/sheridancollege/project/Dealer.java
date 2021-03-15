@@ -31,7 +31,7 @@ public class Dealer extends Player {
      * @return one card concealed 
      */
     public String displayConcealedHand() {
-        return "Dealer's hand: " + this._hand.cards.get(0).toString() + " Folded Card";
+        return "Dealer's hand: " + this._hand.getCards().get(0).toString() + " Folded Card";
 
     }
     
@@ -41,7 +41,7 @@ public class Dealer extends Player {
      */
     public String displayFullHand() {
 
-        return "Dealer's hand: " + this._hand.cards.toString() + " Value: "
+        return "Dealer's hand: " + this._hand.getCards().toString() + " Value: "
                 + this._hand.getHandValue();
 
     }

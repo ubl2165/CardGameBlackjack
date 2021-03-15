@@ -57,7 +57,7 @@ public class Gambler extends Player {
      */
     public String displayHand() {
         return this.getName() + "'s hand: "
-                + this._hand.cards.toString() + " Value: "
+                + this._hand.getCards().toString() + " Value: "
                 + this._hand.getHandValue();
     }
 
