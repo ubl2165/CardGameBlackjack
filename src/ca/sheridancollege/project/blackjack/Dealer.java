@@ -1,4 +1,6 @@
-package ca.sheridancollege.project;
+package ca.sheridancollege.project.blackjack;
+
+import ca.sheridancollege.project.basecode.Player;
 
 /**
  * @author Ji Li

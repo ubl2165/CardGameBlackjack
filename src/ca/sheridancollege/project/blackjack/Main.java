@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ca.sheridancollege.project;
+package ca.sheridancollege.project.blackjack;
 
 import java.util.ArrayList;
 import java.util.Arrays;

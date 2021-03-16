@@ -1,5 +1,7 @@
-package ca.sheridancollege.project;
+package ca.sheridancollege.project.blackjack;
 
+import ca.sheridancollege.project.basecode.Card;
+import ca.sheridancollege.project.basecode.GroupOfCards;
 import java.util.ArrayList;
 
 /**
