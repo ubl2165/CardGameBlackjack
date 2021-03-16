@@ -106,21 +106,71 @@ public class BlackjackGame extends Game {
      */
     public void declareWinner() {
 
-                
+        int dealerScore;
+
+        if (this._dealer.getStatus().equals(Status.FACE_VALUE)) {
+            dealerScore = this._dealer._hand.getHandValue();
+        } else {
+            dealerScore = this._dealer.getStatus().getScore();
+
+        }
+
         for (int i = 0; i < this._gamblers.size(); i++) {
-            
 
-            String winner = this._dealer.getName();
+            int gambleerScore;
 
-            if (this._dealer.getScore() < _gamblers.get(i).getScore()) {
-                
-                winner = _gamblers.get(i).getName();
+            if (this._gamblers.get(i).getStatus().equals(Status.FACE_VALUE)) {
+                gambleerScore = this._gamblers.get(i)._hand.getHandValue();
+            } else {
+                gambleerScore = this._gamblers.get(i).getStatus().getScore();
+
             }
-            
-            //Display winner
+
+            if (dealerScore < gambleerScore) {
+
+                //Set winning rate for the gambler
+                if (_gamblers.get(i).getStatus().equals(Status.GAMBLER_BLACKJACK)) {
+
+                    _gamblers.get(i).getChips().setWinningRate(Rate.BLACKJACK_RATE);
+
+                } else {
+
+                    _gamblers.get(i).getChips().setWinningRate(Rate.REGULAR_RATE);
+
+                }
+
+                //Display winner
+                System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+                System.out.println("Winner is: " + _gamblers.get(i).getName());
+                System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+
+            } else if (dealerScore > gambleerScore) {
+
+                //Set winning rate for the gambler
+                _gamblers.get(i).getChips().setWinningRate(Rate.LOSING_RATE);
+
+                System.out.println("############################");
+                System.out.println("Dealer won");
+                System.out.println("############################");
+
+            } else {
+
+                //Set winning rate for the gambler
+                _gamblers.get(i).getChips().setWinningRate(Rate.PUSH_RATE);
+
+                System.out.println("===============================");
+                System.out.println("It is a Push(Tie), nobody won.");
+                System.out.println("===============================");
+
+            }
+
+            //calculate gambler's fund
+            _gamblers.get(i).getChips().wonChips();
+
+            //Display fund
             System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-            System.out.println(_gamblers.get(i).getName() + " vs. Dealer\n"
-                    + "Winner is: " + winner);
+            System.out.println("Your remaining chips are : "
+                    + _gamblers.get(i).getChips().getFund());
             System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 
         }

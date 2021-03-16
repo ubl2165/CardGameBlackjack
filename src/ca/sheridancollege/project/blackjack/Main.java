@@ -51,6 +51,7 @@ public class Main {
         
         game.play();
         
+        input.close();
         
 
     }//main method

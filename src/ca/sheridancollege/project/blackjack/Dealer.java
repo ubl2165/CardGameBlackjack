@@ -8,19 +8,16 @@ import ca.sheridancollege.project.basecode.Player;
 public class Dealer extends Player {
 
     /**
-     * Fields.
-     * _score for declare winner purpose.
+     * Fields. _score for declare winner purpose.
      */
     private Deck _deck;
-    private int _score;//for deciding winner
+    private Status _status;//for deciding winner
     protected Hand _hand;
-    
-    
-    
+
     /**
-     * Constructor.
-     * Initial dealer's hand to zero. 
-     * @param name 
+     * Constructor. Initial dealer's hand to zero.
+     *
+     * @param name
      */
     public Dealer(String name) {
         super(name);
@@ -30,16 +27,18 @@ public class Dealer extends Player {
 
     /**
      * This method displays before the dealer's turn to play.
-     * @return one card concealed 
+     *
+     * @return one card concealed
      */
     public String displayConcealedHand() {
         return "Dealer's hand: " + this._hand.getCards().get(0).toString() + " Folded Card";
 
     }
-    
+
     /**
      * This method displays the full hand of dealer when dealer playing
-     * @return String of full hand 
+     *
+     * @return String of full hand
      */
     public String displayFullHand() {
 
@@ -47,10 +46,11 @@ public class Dealer extends Player {
                 + this._hand.getHandValue();
 
     }
-    
+
     /**
-     * This method check if it is Blackjack only when first two cards are dealt. 
-     * @return Boolean value 
+     * This method check if it is Blackjack only when first two cards are dealt.
+     *
+     * @return Boolean value
      */
     public boolean isBlackjack() {
         //return ture only player receives 21 on first and second card
@@ -58,9 +58,10 @@ public class Dealer extends Player {
         return this._hand.getHandValue() == 21
                 && this._hand.getSize() == 2;
     }
-    
+
     /**
      * This method check if sum of card value over 21.
+     *
      * @return Boolean value
      */
     public boolean isBust() {
@@ -69,59 +70,66 @@ public class Dealer extends Player {
     }
 
     /**
-     * This method applies Dealer's rules to play in Blackjack.
-     * 1. If dealer gets Blackjack at beginning, dealer gets highest score 101.
-     * 2. If dealer gets bust, dealer gets 0 score, 
-     * still higher than player's bust which is only -1.
-     * 3. Dealer can't stop dealing until hand value reach 17 or more.
-     * 
+     * This method applies Dealer's rules to play in Blackjack. 1. If dealer
+     * gets Blackjack at beginning, dealer gets highest score 101. 2. If dealer
+     * gets bust, dealer gets 0 score, still higher than player's bust which is
+     * only -1. 3. Dealer can't stop dealing until hand value reach 17 or more.
+     *
      */
     public void play() {
         System.out.println("Dealer's play -- foo");
+
         
-        int flag;
         
-        do {            
-            flag = this._hand.getHandValue();
+        //first check if it is a Blackjack
+        if (this.isBlackjack()) {
+            System.out.println("***********Blackjack!!!***********");
+            this._status = Status.DEALER_BLACKJACK;
             System.out.println(displayFullHand());
-            if (this.isBlackjack()) {
-                System.out.println("***********Blackjack!!!***********");
-                //more than player's Blackjack for casino privilege.
-                this._score = 101;
-            } else if (this.isBust()) {
-                System.out.println("***********Bust!!!***********");
+        } else {
+            int flag;
+            do {
+                
+                System.out.println(displayFullHand());
+                
+                flag = this._hand.getHandValue();
+                
+                if (this.isBust()) {
+                    System.out.println("***********Bust!!!***********");
 
-                //set gambler's bust score to -1, less than dealer's bust
-                this._score = 0;
-            } else if (this._hand.getHandValue() >= 17) {
-                this._score = this._hand.getHandValue();
-            } else {
-                System.out.println("*******Hit another card************");
-                System.out.println("-----------------------------------");
-                this._hand.addCard(this._deck.distributeCard());
-            }
+                    //set gambler's bust score to -1, less than dealer's bust
+                    this._status = Status.DEALER_BUST;
+                } else if (this._hand.getHandValue() >= 17) {
+                    this._status = Status.FACE_VALUE;
+                } else {
+                    System.out.println("*******Hit another card************");
+                    System.out.println("-----------------------------------");
+                    this._hand.addCard(this._deck.distributeCard());
+                }
 
-        } while (flag < 17);// out of loop when flag over 17.
+            } while (flag < 17);// out of loop when flag over 17.
+        }
 
-        System.out.println(this._score);//for test only
+        System.out.println(this._status);//for test only
     }
-    
+
     /**
-     * Setter for _deck. 
-     * Invoking from BlackjackGame.
-     * In play() can perform hit function: add card to hand from deck.
-     * @param _deck 
+     * Setter for _deck. Invoking from BlackjackGame. In play() can perform hit
+     * function: add card to hand from deck.
+     *
+     * @param _deck
      */
     public void setDeck(Deck _deck) {
         this._deck = _deck;
     }
 
     /**
-     * Getter for _score.
+     * Getter for _status.
+     *
      * @return integer score for deciding winner.
      */
-    public int getScore() {
-        return _score;
+    public Status getStatus() {
+        return _status;
     }
 
 }
