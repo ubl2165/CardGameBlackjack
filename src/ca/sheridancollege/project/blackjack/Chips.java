@@ -1,5 +1,7 @@
 package ca.sheridancollege.project.blackjack;
 
+import ca.sheridancollege.project.enums.Rate;
+
 /**
  *A class define Betting token or chips.
  * @author Ji Li

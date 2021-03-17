@@ -1,4 +1,4 @@
-package ca.sheridancollege.project.blackjack;
+package ca.sheridancollege.project.enums;
 
 /**
  *An enumeration to define Blackjack Winning Rate

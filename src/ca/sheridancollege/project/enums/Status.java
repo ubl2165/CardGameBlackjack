@@ -1,5 +1,5 @@
 
-package ca.sheridancollege.project.blackjack;
+package ca.sheridancollege.project.enums;
 
 /**
  * An enumeration class to define score Constance.
