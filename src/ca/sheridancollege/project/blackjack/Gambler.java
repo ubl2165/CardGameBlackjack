@@ -18,8 +18,8 @@ public class Gambler extends Player {
     /**
      * Fields.
      */
-    protected Hand _hand;
-    private Deck _deck;
+//    protected Hand _hand;
+//    private Deck _deck;
     private Status _status;//for deciding winner
     private Chips _chips;
     private Scanner input;
@@ -32,7 +32,7 @@ public class Gambler extends Player {
      */
     public Gambler(String name) {
         super(name);
-        this._hand = new Hand(0);
+//        this._hand = new Hand(0);
         _chips = new Chips(10);
 
         input = new Scanner(System.in);
@@ -40,27 +40,27 @@ public class Gambler extends Player {
 
     }
 
-    /**
-     * This method check if it is Blackjack only when first two cards are dealt.
-     *
-     * @return Boolean value
-     */
-    public boolean isBlackjack() {
-        //return ture only player receives 21 on first and second card
-        //that means one of the two card is an Ace, and count as 11 
-        return this._hand.getHandValue() == 21
-                && this._hand.getSize() == 2;
-    }
-
-    /**
-     * This method check if sum of card value over 21.
-     *
-     * @return Boolean value
-     */
-    public boolean isBust() {
-
-        return this._hand.getHandValue() > 21;
-    }
+//    /**
+//     * This method check if it is Blackjack only when first two cards are dealt.
+//     *
+//     * @return Boolean value
+//     */
+//    public boolean isBlackjack() {
+//        //return ture only player receives 21 on first and second card
+//        //that means one of the two card is an Ace, and count as 11 
+//        return this._hand.getHandValue() == 21
+//                && this._hand.getSize() == 2;
+//    }
+//
+//    /**
+//     * This method check if sum of card value over 21.
+//     *
+//     * @return Boolean value
+//     */
+//    public boolean isBust() {
+//
+//        return this._hand.getHandValue() > 21;
+//    }
 
     /**
      * This method displays the full hand of gambler
@@ -69,8 +69,8 @@ public class Gambler extends Player {
      */
     public String displayHand() {
         return this.getName() + "'s hand: "
-                + this._hand.getCards().toString() + " Value: "
-                + this._hand.getHandValue();
+                + this.getHand().getCards().toString() + " Value: "
+                + this.getHand().getHandValue();
     }
 
     /**
@@ -153,7 +153,7 @@ public class Gambler extends Player {
                 switch (answer) {
 
                     case 1:
-                        this._hand.addCard(this._deck.distributeCard());
+                        this.getHand().addCard(this.getDeck().distributeCard());
 
                         if (this.isBust()) {
                             System.out.println("**********Bust!!!**************");
@@ -183,16 +183,16 @@ public class Gambler extends Player {
 
     }
 
-    /**
-     * Setter for _deck. Invoking from BlackjackGame. In play() can perform hit
-     * function: add card to hand from deck.
-     *
-     * @param _deck
-     */
-    public void setDeck(Deck _deck) {
-
-        this._deck = _deck;
-    }
+//    /**
+//     * Setter for _deck. Invoking from BlackjackGame. In play() can perform hit
+//     * function: add card to hand from deck.
+//     *
+//     * @param _deck
+//     */
+//    public void setDeck(Deck _deck) {
+//
+//        this._deck = _deck;
+//    }
 
     /**
      * Getter for _status.

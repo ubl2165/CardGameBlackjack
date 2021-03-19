@@ -11,9 +11,9 @@ public class Dealer extends Player {
     /**
      * Fields. _score for declare winner purpose.
      */
-    private Deck _deck;
+//    private Deck _deck;
     private Status _status;//for deciding winner
-    protected Hand _hand;
+//    protected Hand _hand;
 
     /**
      * Constructor. Initial dealer's hand to zero.
@@ -22,7 +22,7 @@ public class Dealer extends Player {
      */
     public Dealer(String name) {
         super(name);
-        _hand = new Hand(0);
+//        _hand = new Hand(0);
 
     }
 
@@ -32,7 +32,7 @@ public class Dealer extends Player {
      * @return one card concealed
      */
     public String displayConcealedHand() {
-        return "Dealer's hand: " + this._hand.getCards().get(0).toString() + " Folded Card";
+        return "Dealer's hand: " + this.getHand().getCards().get(0).toString() + " Folded Card";
 
     }
 
@@ -43,32 +43,32 @@ public class Dealer extends Player {
      */
     public String displayFullHand() {
 
-        return "Dealer's hand: " + this._hand.getCards().toString() + " Value: "
-                + this._hand.getHandValue();
+        return "Dealer's hand: " + this.getHand().getCards().toString() + " Value: "
+                + this.getHand().getHandValue();
 
     }
 
-    /**
-     * This method check if it is Blackjack only when first two cards are dealt.
-     *
-     * @return Boolean value
-     */
-    public boolean isBlackjack() {
-        //return ture only player receives 21 on first and second card
-        //that means one of the two card is an Ace, and count as 11 
-        return this._hand.getHandValue() == 21
-                && this._hand.getSize() == 2;
-    }
-
-    /**
-     * This method check if sum of card value over 21.
-     *
-     * @return Boolean value
-     */
-    public boolean isBust() {
-
-        return this._hand.getHandValue() > 21;
-    }
+//    /**
+//     * This method check if it is Blackjack only when first two cards are dealt.
+//     *
+//     * @return Boolean value
+//     */
+//    public boolean isBlackjack() {
+//        //return ture only player receives 21 on first and second card
+//        //that means one of the two card is an Ace, and count as 11 
+//        return this._hand.getHandValue() == 21
+//                && this._hand.getSize() == 2;
+//    }
+//
+//    /**
+//     * This method check if sum of card value over 21.
+//     *
+//     * @return Boolean value
+//     */
+//    public boolean isBust() {
+//
+//        return this._hand.getHandValue() > 21;
+//    }
 
     /**
      * This method applies Dealer's rules to play in Blackjack. 1. If dealer
@@ -93,19 +93,19 @@ public class Dealer extends Player {
                 
                 System.out.println(displayFullHand());
                 
-                flag = this._hand.getHandValue();
+                flag = this.getHand().getHandValue();
                 
                 if (this.isBust()) {
                     System.out.println("***********Bust!!!***********");
 
                     //set gambler's bust score to -1, less than dealer's bust
                     this._status = Status.DEALER_BUST;
-                } else if (this._hand.getHandValue() >= 17) {
+                } else if (this.getHand().getHandValue() >= 17) {
                     this._status = Status.FACE_VALUE;
                 } else {
                     System.out.println("*******Hit another card************");
                     System.out.println("-----------------------------------");
-                    this._hand.addCard(this._deck.distributeCard());
+                    this.getHand().addCard(this.getDeck().distributeCard());
                 }
 
             } while (flag < 17);// out of loop when flag over 17.
@@ -114,15 +114,15 @@ public class Dealer extends Player {
         System.out.println(this._status);//for test only
     }
 
-    /**
-     * Setter for _deck. Invoking from BlackjackGame. In play() can perform hit
-     * function: add card to hand from deck.
-     *
-     * @param _deck
-     */
-    public void setDeck(Deck _deck) {
-        this._deck = _deck;
-    }
+//    /**
+//     * Setter for _deck. Invoking from BlackjackGame. In play() can perform hit
+//     * function: add card to hand from deck.
+//     *
+//     * @param _deck
+//     */
+//    public void setDeck(Deck _deck) {
+//        this._deck = _deck;
+//    }
 
     /**
      * Getter for _status.

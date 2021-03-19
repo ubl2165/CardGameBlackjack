@@ -3,6 +3,7 @@ package ca.sheridancollege.project.blackjack;
 import ca.sheridancollege.project.enums.Status;
 import ca.sheridancollege.project.enums.Rate;
 import ca.sheridancollege.project.basecode.Game;
+import ca.sheridancollege.project.basecode.Player;
 import java.util.ArrayList;
 
 /**
@@ -34,15 +35,19 @@ public class BlackjackGame extends Game {
         this._dealer = dealer;
         this._gamblers = gamblers;
 
-        //Assign same deck to every player, including dealer and gamblers
-        for (Gambler g : this._gamblers) {
-            g.setDeck(this._deck);
-        }
-        this._dealer.setDeck(this._deck);
+//        //Assign same deck to every player, including dealer and gamblers
+//        for (Gambler g : this._gamblers) {
+//            g.setDeck(this._deck);
+//        }
+//        this._dealer.setDeck(this._deck);
 
         //Assign dealer and gamblers to the player list
         this.getPlayers().addAll(this._gamblers);
         this.getPlayers().add(this._dealer);
+        
+        for(Player player : this.getPlayers()){
+            player.setDeck(this._deck);
+        }
 
     }
 
@@ -59,11 +64,11 @@ public class BlackjackGame extends Game {
 
             //first, the gamblers get cards
             for (Gambler g : this._gamblers) {
-                g._hand.addCard(this._deck.distributeCard());
+                g.getHand().addCard(this._deck.distributeCard());
             }
 
             //Dealer gets card
-            this._dealer._hand.addCard(this._deck.distributeCard());
+            this._dealer.getHand().addCard(this._deck.distributeCard());
         }
 
     }
@@ -75,6 +80,7 @@ public class BlackjackGame extends Game {
      * Winner
      */
     public void play() {
+        
         deal();
 
 //        Show hands
@@ -111,18 +117,23 @@ public class BlackjackGame extends Game {
         int dealerScore;
 
         if (this._dealer.getStatus().equals(Status.FACE_VALUE)) {
-            dealerScore = this._dealer._hand.getHandValue();
+            dealerScore = this._dealer.getHand().getHandValue();
         } else {
             dealerScore = this._dealer.getStatus().getScore();
 
         }
 
         for (int i = 0; i < this._gamblers.size(); i++) {
+            
+            System.out.println("-------------------------");
+            System.out.printf("%s vs. %s\n", this._dealer.getName(), 
+                    this._gamblers.get(i).getName());
+            System.out.println("-------------------------");     
 
             int gambleerScore;
 
             if (this._gamblers.get(i).getStatus().equals(Status.FACE_VALUE)) {
-                gambleerScore = this._gamblers.get(i)._hand.getHandValue();
+                gambleerScore = this._gamblers.get(i).getHand().getHandValue();
             } else {
                 gambleerScore = this._gamblers.get(i).getStatus().getScore();
 
