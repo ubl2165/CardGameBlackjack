@@ -26,6 +26,7 @@ public class GroupOfCards {
     }
     
     public GroupOfCards() {
+        
     }
 
     /**

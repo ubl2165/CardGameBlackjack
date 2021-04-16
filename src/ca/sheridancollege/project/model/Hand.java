@@ -14,8 +14,9 @@ public class Hand extends GroupOfCards {
      * Fields.
      * _numberOfAce for compute
      */
-    private int _numberOfAce;
-    private int _handValue;
+    private int numberOfAce;
+    private int handValue;
+    private Deck deck;
 
 
     /**
@@ -24,13 +25,9 @@ public class Hand extends GroupOfCards {
      */
     public Hand(int size) {
         super(size);
-
-
-
-//        cards.addAll(bjCards);
-
-        this._handValue = 0;
-        _numberOfAce = 0;
+        deck = Deck.getDeck();
+        this.handValue = 0;
+        numberOfAce = 0;
     }
     
     /**
@@ -39,7 +36,9 @@ public class Hand extends GroupOfCards {
      * Each time a card added, automatically compute the hand value.
      * @param card 
      */
-    public void addCard(Card card) {
+    public void addCard() {
+        
+        Card card = deck.distributeCard();
         //cards add 1
         getCards().add(card);
 
@@ -48,8 +47,7 @@ public class Hand extends GroupOfCards {
 
         //if is a Ace ,numberOfAce add 1
         if (card instanceof BlackjackCard && ((BlackjackCard) card).getValue() == BlackjackCard.Value.ACE) {
-            this._numberOfAce++;
-
+            this.numberOfAce++;
         }
 
         //every time add a card, update hand value and alternative value
@@ -63,22 +61,22 @@ public class Hand extends GroupOfCards {
     private void computeValue() {
         
         //First, set hand value to zero, otherwise there will be incorrect result.
-        this._handValue = 0;
+        this.handValue = 0;
         
         //Secondly, sum up all the non-ACE cards' value
         for (int i = 0; i < getCards().size(); i++) {
             if (((BlackjackCard)getCards().get(i)).getValue() != BlackjackCard.Value.ACE) {
-                this._handValue += ((BlackjackCard)getCards().get(i)).getValue().getCardValue();
+                this.handValue += ((BlackjackCard)getCards().get(i)).getValue().getCardValue();
             }
         }
         
         //Finally, add Ace value accordingly
-        for (int i = 0; i < this._numberOfAce; i++) {
+        for (int i = 0; i < this.numberOfAce; i++) {
             
-            if(this._handValue + BlackjackCard.Value.ACE.getAlternativeValue() > 21) {
-                this._handValue +=  BlackjackCard.Value.ACE.getCardValue();
+            if(this.handValue + BlackjackCard.Value.ACE.getAlternativeValue() > 21) {
+                this.handValue +=  BlackjackCard.Value.ACE.getCardValue();
             }else {
-                this._handValue += BlackjackCard.Value.ACE.getAlternativeValue();
+                this.handValue += BlackjackCard.Value.ACE.getAlternativeValue();
             }
         }
 
@@ -89,7 +87,7 @@ public class Hand extends GroupOfCards {
      * @return 
      */
     public int getHandValue() {
-        return _handValue;
+        return handValue;
     }
 
 

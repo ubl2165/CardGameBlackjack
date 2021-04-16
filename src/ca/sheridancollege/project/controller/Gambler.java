@@ -1,5 +1,6 @@
-package ca.sheridancollege.project.model;
+package ca.sheridancollege.project.controller;
 
+import ca.sheridancollege.project.model.Chips;
 import ca.sheridancollege.project.model.enums.Status;
 import ca.sheridancollege.project.model.basecode.Player;
 import ca.sheridancollege.project.view.GameUI;
@@ -36,7 +37,7 @@ public class Gambler extends Player {
     public Gambler(String name) {
         super(name);
 //        this._hand = new Hand(0);
-        chips = new Chips(10);
+        chips = new Chips(1000);
 
         input = new Scanner(System.in);
 //        this.chips.setFund(10);//set initial fund to 10 chips 
@@ -75,35 +76,59 @@ public class Gambler extends Player {
             this.status = Status.GAMBLER_BUST;
         } else {
 
-            int answer = 0;
+            //check Gambler'fund, see if he got enough to do double down.
+            double fund = this.getChips().getChipsInPocket();
 
-            do {
+            //check how much is the bet
+            double bet = this.getChips().getBet();
 
-                answer = hostess.gameChoicePrompt();
+            if (hostess.doubleDownPrompt(bet, fund, this) == 1) {
 
-                switch (answer) {
+                this.chips.betChips(bet);
+                this.getHand().addCard();
 
-                    case 1:
-                        this.getHand().addCard(deck.distributeCard());
+                if (this.isBust()) {
 
-                        if (this.isBust()) {
-
-                            this.status = Status.GAMBLER_BUST;
-                        } else {
-                            this.status = Status.HAND_VALUE;
-                        }
-                        hostess.displayFullHand(this);
-                        break;
-
-                    case 2:
-                        this.status = Status.HAND_VALUE;
-                        break;
+                    this.status = Status.GAMBLER_BUST;
+                } else {
+                    this.status = Status.HAND_VALUE;
                 }
+                hostess.displayFullHand(this);
 
-            } while (this.getStatus() != Status.GAMBLER_BUST
-                    && answer != 2);
+            } else {//not double down
+
+                int answer;
+
+                do {
+
+                    answer = hostess.gameChoicePrompt();
+
+                    switch (answer) {
+
+                        case 1:
+
+                            this.getHand().addCard();
+
+                            if (this.isBust()) {
+
+                                this.status = Status.GAMBLER_BUST;
+                            } else {
+                                this.status = Status.HAND_VALUE;
+                            }
+                            hostess.displayFullHand(this);
+                            break;
+
+                        case 2:
+                            this.status = Status.HAND_VALUE;
+                            break;
+                    }
+
+                } while (this.getStatus() != Status.GAMBLER_BUST
+                        && answer != 2);
+            }
+
         }// end of else
-        
+
         hostess.displayGamblerResult(status, this);
     }
 

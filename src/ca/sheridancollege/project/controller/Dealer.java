@@ -1,5 +1,6 @@
-package ca.sheridancollege.project.model;
+package ca.sheridancollege.project.controller;
 
+import ca.sheridancollege.project.model.Deck;
 import ca.sheridancollege.project.model.enums.Status;
 import ca.sheridancollege.project.model.basecode.Player;
 import ca.sheridancollege.project.view.GameUI;
@@ -38,18 +39,24 @@ public class Dealer extends Player {
      * Each pass distributes one card from the deck.
      * 
      * dealer deal cards: single responsibility.
-     * @param deck which is the one and only instance of Deck
+     * 
      * @param players which are the all player list
      */
-    public void deal(Deck deck, ArrayList<Player> players) {
-
+    public void deal(ArrayList<Player> players) {
+        
+        //First clear all cards on player's hand
+        for(Player player : players) {
+                  
+                  player.getHand().getCards().clear();
+            }
+        
         //according to the rule, inital two cards for each player.
         //starting from each gamblers then dealer
         for (int i = 0; i < 2; i++) {
-            
+
             for(Player player : players) {
-            
-                player.getHand().addCard(deck.distributeCard());
+                  
+                  player.getHand().addCard();
             }
 
         }
@@ -94,7 +101,9 @@ public class Dealer extends Player {
                 } else {
 
                     hostess.displayDealerHittingCard(this);
-                    this.getHand().addCard(deck.distributeCard());
+//                    this.getHand().addCard(deck.distributeCard());
+                      this.getHand().addCard();
+                      hostess.displayFullHand(this);
                 }
 
             } while (flag < 17);// out of loop when flag over 17.

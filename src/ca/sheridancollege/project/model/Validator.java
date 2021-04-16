@@ -1,5 +1,6 @@
 package ca.sheridancollege.project.model;
 
+import ca.sheridancollege.project.controller.Gambler;
 import ca.sheridancollege.project.model.basecode.Player;
 import java.util.ArrayList;
 

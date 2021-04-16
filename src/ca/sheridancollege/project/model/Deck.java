@@ -15,10 +15,10 @@ public class Deck extends GroupOfCards {
     
     /**
      * Field.
-     * setOfCards: how many set of cards to play the game.
+     * 
      */
     
-    private int setOfCards;
+    
     private static Deck oneAndOnly = null; //step 1: set up global object
     
     /**
@@ -28,11 +28,7 @@ public class Deck extends GroupOfCards {
      * @param 
      */
     private Deck() { //step 2: make constructor private
-//        super(52 * setOfCards);
-//        
-//        this.setOfCards = setOfCards;
-//
-//        generateNewDeck(this.setOfCards);
+        
     }
     
     
@@ -49,25 +45,7 @@ public class Deck extends GroupOfCards {
     
     }
 
-//    /**
-//     * Method to create deck for Blackjack game.
-//     * clear all the deck first.
-//     * @param sets : how many set of cards to play 
-//     */
-//
-//    private void generateNewDeck(int sets) {
-//        
-//        //clear the deck first.
-//        this.getCards().clear();
-//        
-//        for (int i = 0; i < sets; i++) {
-//            for (BlackjackCard.Value v : BlackjackCard.Value.values()) {
-//                for (BlackjackCard.Suit s : BlackjackCard.Suit.values()) {
-//                    getCards().add(new BlackjackCard(v, s));
-//                }
-//            }
-//        }
-//    }
+
 
     /**
      * Method to remove one card from the deck to distribute to the player.

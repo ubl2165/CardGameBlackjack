@@ -20,7 +20,7 @@ public abstract class Player implements BlackjackRules{
 
     private String name; //the unique name for this player
     private Hand hand;
-    public Deck deck = Deck.getDeck();
+//    public Deck deck = Deck.getDeck();
 
     /**
      * A constructor that allows you to set the player's unique ID

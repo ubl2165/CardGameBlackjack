@@ -40,7 +40,7 @@ public class Chips {
      * @throws IllegalArgumentException
      */
     
-    public void betChips(double chipsToBet) throws IllegalArgumentException{
+    public void betChips(double chipsToBet){
         
 //        if(chipsToBet > this.chipsInPocket) {
 //            throw new IllegalArgumentException("Insufficent Fund.");
@@ -52,7 +52,7 @@ public class Chips {
 //        }
 
             this.chipsInPocket -= chipsToBet; 
-            this.bet = chipsToBet;
+            this.bet += chipsToBet;
     }
     
     /**
@@ -83,6 +83,11 @@ public class Chips {
     public void setWinningRate(Rate winningRate) {
         this.winningRate = winningRate;
     }
+
+    public double getBet() {
+        return bet;
+    }
+    
     
     
     

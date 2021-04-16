@@ -2,8 +2,6 @@ package ca.sheridancollege.project.controller;
 
 import ca.sheridancollege.project.model.BlackjackCard;
 import ca.sheridancollege.project.model.Deck;
-import ca.sheridancollege.project.model.Gambler;
-import ca.sheridancollege.project.model.Dealer;
 import ca.sheridancollege.project.model.enums.Status;
 import ca.sheridancollege.project.model.enums.Rate;
 import ca.sheridancollege.project.model.basecode.Game;
@@ -13,7 +11,8 @@ import ca.sheridancollege.project.view.GameUI;
 import java.util.ArrayList;
 
 /**
- * This class defines the basic Blackjack rules
+ * This class defines the basic Blackjack rules, and controls the view and 
+ * model class.
  *
  * @author Ji LI 2021 March
  */
@@ -47,20 +46,7 @@ public class BlackjackGame extends Game {
 
         //shuffle deck, and ready to play.
         deck.shuffle();
-//        this.dealer = dealer;
-//        
 
-//        //Assign same deck to every player, including dealer and gamblers
-//        for (Gambler g : this.gamblers) {
-//            g.setDeck(this.deck);
-//        }
-//        this.dealer.setDeck(this.deck);
-        //Assign dealer and gamblers to the player list
-//        this.getPlayers().addAll(this.gamblers);
-//        this.getPlayers().add(this.dealer);
-//        for(Player player : this.getPlayers()){
-//            player.setDeck(this.deck);
-//        }
     }
 
     /**
@@ -83,27 +69,7 @@ public class BlackjackGame extends Game {
         }
     }
 
-//    /**
-//     * Method for card dealing. There are two passes to initialize the game.
-//     * each pass distributes one card from first player to dealer Each pass
-//     * distributes one card from the deck.
-//     */
-//    private void deal() {
-//
-//        //according to the rule, inital two cards for each player.
-//        //starting from each gamblers then dealer
-//        for (int i = 0; i < 2; i++) {
-//
-//            //first, the gamblers get cards
-//            for (Gambler g : this.gamblers) {
-//                g.getHand().addCard(this.deck.distributeCard());
-//            }
-//
-//            //Dealer gets card
-//            this.dealer.getHand().addCard(this.deck.distributeCard());
-//        }
-//
-//    }
+
     /**
      * Play the game with Blackjack rules. 1. Deal cards 2. Display every
      * player's hand. 3. Dealer conceal one card at beginning of the game. 4.
@@ -126,7 +92,7 @@ public class BlackjackGame extends Game {
 
         //Secondly, dealer deal cards. 
         hostess.dealCardsAnnoucement();
-        dealer.deal(deck, players);
+        dealer.deal(players);
 
         //Thirdly, show hands, first Dealer's hand: one card consealed
         hostess.displayConsealedHand(dealer);
@@ -148,7 +114,7 @@ public class BlackjackGame extends Game {
             
             player.play();
             
-            hostess.displayInterlude();
+            hostess.displayInterlude(200);
         }
 
         declareWinner();

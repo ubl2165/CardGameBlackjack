@@ -5,8 +5,8 @@
  */
 package ca.sheridancollege.project.view;
 
-import ca.sheridancollege.project.model.Dealer;
-import ca.sheridancollege.project.model.Gambler;
+import ca.sheridancollege.project.controller.Dealer;
+import ca.sheridancollege.project.controller.Gambler;
 import ca.sheridancollege.project.model.Validator;
 import ca.sheridancollege.project.model.basecode.Player;
 import ca.sheridancollege.project.model.enums.Result;
@@ -41,12 +41,13 @@ public class GameUI {
         char answer;
 
         do {
-
+            System.out.println("what is new player's name?");
+            
             boolean tryAgain = true;
 
             while (tryAgain) {
 
-                System.out.println("what is new player's name?");
+                
 
                 String name = input.nextLine();
 
@@ -59,7 +60,7 @@ public class GameUI {
                         Player newPlayer = new Gambler(name);
                         gamblers.add(newPlayer);
 
-                        System.out.println(name + " joins the game. ");
+                        System.out.println(name + " joins the table. ");
                         tryAgain = false;
 
                     }
@@ -67,10 +68,12 @@ public class GameUI {
                 } catch (IllegalArgumentException ex) {
 
                     System.err.println("Error: " + ex.getMessage());
+                    System.out.println("Try again.");
 
                 } catch (Exception ex) {
 
                     System.err.println("Error: " + ex.getMessage());
+                    System.out.println("Try again.");
                 }
 
             }
@@ -190,7 +193,7 @@ public class GameUI {
 
     public void declareWinner(Dealer dealer, Gambler gambler, Result result) {
 
-        System.out.println("-------------------------------");
+        System.out.println("\n-------------------------------");
 
         System.out.printf("DEALER vs. %s\n", gambler.getName());
         displayFullHand(dealer);
@@ -230,16 +233,14 @@ public class GameUI {
     }
 
     public void displayPlaySceneTitle(Player player) {
-        
+
         System.out.println();
-        System.out.printf("***---Player %s's play ---***\n", player.getName());
-        
-    
+        System.out.printf("***---%s's play ---***\n", player.getName());
+
     }
-    
+
     public void displayGamblerResult(Status status, Player player) {
-    
-        
+
         switch (status) {
 
             case GAMBLER_BLACKJACK:
@@ -276,61 +277,108 @@ public class GameUI {
 
                 }
 
-            } catch (IllegalArgumentException ex) {
+            } catch (NumberFormatException ex) {
                 System.err.println("Error: " + ex.getMessage());
 
-            } catch (InputMismatchException ex ) {
+            } catch (InputMismatchException ex) {
 
                 System.err.println("Error: Please enter a number");
 
-            } catch (Exception ex) {
+            } catch (IllegalArgumentException ex) {
                 System.err.println("Error: " + ex.getMessage());
             }
         }
         return choice;
     }
-    
-    public void displayDealerResult(Status status, Dealer dealer)
-    {
-    
-                switch (status) {
 
-            case GAMBLER_BLACKJACK:
+    public int doubleDownPrompt(double bet, double fund, Gambler gambler) {
+
+        int choice = 0;
+
+        if (bet > fund) {
+
+            System.out.printf("%s's bet is %.1f \n", gambler.getName(), bet);
+            System.out.printf("%s's remaining chips are: %.1f\n", gambler.getName(), fund);
+            System.out.println("Sorry, Not enough chips to do double down.");
+
+        } else {
+
+            System.out.println("Double down? ");
+
+            System.out.println("Double the initial bet, but you have to hit one and only one more card.");
+
+            System.out.println("1. Yes\n2. No");
+
+            boolean tryAgain = true;
+            while (tryAgain) {
+                try {
+                    String in = input.nextLine();
+                    if (validator.isNotEmptyOrNull(in)
+                            && validator.isValidInteger(in)
+                            && validator.isInTheRange(Integer.parseInt(in), 1, 2)) {
+
+                        choice = Integer.parseInt(in);
+                        tryAgain = false;
+                    }
+
+                } catch (NumberFormatException ex) {
+                    System.err.println("Error: " + ex.getMessage());
+
+                } catch (InputMismatchException ex) {
+
+                    System.err.println("Error: Please enter a number");
+
+                } catch (IllegalArgumentException ex) {
+                    System.err.println("Error: " + ex.getMessage());
+                }
+            }
+
+        }
+
+        return choice;
+    }
+
+    public void displayDealerResult(Status status, Dealer dealer) {
+
+        switch (status) {
+
+            case DEALER_BLACKJACK:
                 System.out.println("***********Dealer got a Blackjack!!!***********");
                 break;
-            case GAMBLER_BUST:
+            case DEALER_BUST:
                 System.out.println("***********Dealer got a Bust!!!***********");
                 break;
             case HAND_VALUE:
                 System.out.printf("***********Dealer's hand: %d. He can not hit anymore.***********\n", dealer.getHand().getHandValue());
-                              
+
         }
     }
-    
-    public void displayDealerHittingCard(Dealer dealer){
-        
+
+    public void displayDealerHittingCard(Dealer dealer) {
+
         System.out.printf("*******Dealer's hand: %d, less than 17************\n", dealer.getHand().getHandValue());
         System.out.println("*******He has to hit another card************");
-        displayInterlude();
-    
+        displayInterlude(100);
+
     }
-    
-    
-    public void displayInterlude() {
-    
+
+    public void displayInterlude(int timeInMilliSecond) {
+
         int timeToWait = 10; //
-        
+
         try {
-            for (int i=0; i<timeToWait ; i++) {
-                Thread.sleep(300);//wait .3 * timeToWait = 3 second
-                System.out.print(".");
+            for (int i = 0; i < timeToWait; i++) {
+                
+                //timeInMilliSecond / 1000 * timeToWait =  second to wait
+                Thread.sleep(timeInMilliSecond);
+                
+                System.out.println(".");
             }
-        } catch (InterruptedException ex)
-        {
+        } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
             System.out.println("Eorro: " + ex.getMessage());
         }
-    
+
     }
 
 }
