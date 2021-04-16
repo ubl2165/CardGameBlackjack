@@ -1,6 +1,6 @@
-package ca.sheridancollege.project.blackjack;
+package ca.sheridancollege.project.model;
 
-import ca.sheridancollege.project.basecode.Card;
+import ca.sheridancollege.project.model.basecode.Card;
 
 /**
  *  This class defines the value and suit of the Blackjack card

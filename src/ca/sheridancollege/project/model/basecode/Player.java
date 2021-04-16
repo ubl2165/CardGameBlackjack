@@ -3,14 +3,15 @@
  * Students can modify and extend to implement their game.
  * Add your name as an author and the date!
  */
-package ca.sheridancollege.project.basecode;
+package ca.sheridancollege.project.model.basecode;
 
-import ca.sheridancollege.project.blackjack.BlackjackRules;
-import ca.sheridancollege.project.blackjack.Deck;
-import ca.sheridancollege.project.blackjack.Hand;
+import ca.sheridancollege.project.model.BlackjackRules;
+import ca.sheridancollege.project.model.Deck;
+import ca.sheridancollege.project.model.Hand;
 
 /**
- * A class that models each Player in the game. Players have an identifier, which should be unique.
+ * A class that models each Player in the game. 
+ * Players have an identifier, which should be unique.
  *
  * @author dancye
  * @author Paul Bonenfant Jan 2020
@@ -18,8 +19,8 @@ import ca.sheridancollege.project.blackjack.Hand;
 public abstract class Player implements BlackjackRules{
 
     private String name; //the unique name for this player
-    private Hand _hand;
-    private Deck _deck;
+    private Hand hand;
+    public Deck deck = Deck.getDeck();
 
     /**
      * A constructor that allows you to set the player's unique ID
@@ -28,27 +29,29 @@ public abstract class Player implements BlackjackRules{
      */
     public Player(String name) {
         this.name = name;
-        this._hand = new Hand(0);
+        this.hand = new Hand(0);
     }
-    
-    
 
     public Hand getHand() {
-        return _hand;
+        return hand;
     }
 
-    public void setHand(Hand _hand) {
-        this._hand = _hand;
-    }
-
-    public Deck getDeck() {
-        return _deck;
-    }
-
-    public void setDeck(Deck _deck) {
-        this._deck = _deck;
+    public void setHand(Hand hand) {
+        this.hand = hand;
     }
     
+    
+
+
+
+//    public Deck getDeck() {
+//        return _deck;
+//    }
+//
+//    public void setDeck(Deck _deck) {
+//        this._deck = _deck;
+//    }
+//    
     
 
     
@@ -70,7 +73,7 @@ public abstract class Player implements BlackjackRules{
     }
     
     
-        /**
+     /**
      * This method check if it is Blackjack only when first two cards are dealt.
      *
      * @return Boolean value
@@ -79,8 +82,8 @@ public abstract class Player implements BlackjackRules{
     public boolean isBlackjack() {
         //return ture only player receives 21 on first and second card
         //that means one of the two card is an Ace, and count as 11 
-        return this._hand.getHandValue() == 21
-                && this._hand.getSize() == 2;
+        return this.hand.getHandValue() == 21
+                && this.hand.getSize() == 2;
     }
 
     /**
@@ -91,7 +94,7 @@ public abstract class Player implements BlackjackRules{
     @Override
     public boolean isBust() {
 
-        return this._hand.getHandValue() > 21;
+        return this.hand.getHandValue() > 21;
     }
 
     /**

@@ -1,4 +1,4 @@
-package ca.sheridancollege.project.blackjack;
+package ca.sheridancollege.project.model;
 
 /**
  * This is an interface to define Blackjack playing rules.

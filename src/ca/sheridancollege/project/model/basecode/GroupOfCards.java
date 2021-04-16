@@ -3,7 +3,7 @@
  * Students can modify and extend to implement their game.
  * Add your name as an author and the date!
  */
-package ca.sheridancollege.project.basecode;
+package ca.sheridancollege.project.model.basecode;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,7 +23,9 @@ public class GroupOfCards {
 
     public GroupOfCards(int size) {
         this.size = size;
-
+    }
+    
+    public GroupOfCards() {
     }
 
     /**
@@ -43,7 +45,8 @@ public class GroupOfCards {
      * @return the size of the group of cards
      */
     public int getSize() {
-        return size;
+//        return size;
+            return cards.size();
     }
 
     /**

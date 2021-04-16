@@ -1,7 +1,7 @@
-package ca.sheridancollege.project.blackjack;
+package ca.sheridancollege.project.model;
 
-import ca.sheridancollege.project.basecode.Card;
-import ca.sheridancollege.project.basecode.GroupOfCards;
+import ca.sheridancollege.project.model.basecode.Card;
+import ca.sheridancollege.project.model.basecode.GroupOfCards;
 import java.util.ArrayList;
 
 /**

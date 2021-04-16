@@ -1,5 +1,5 @@
 
-package ca.sheridancollege.project.enums;
+package ca.sheridancollege.project.model.enums;
 
 /**
  * An enumeration class to define score Constance.
@@ -7,7 +7,7 @@ package ca.sheridancollege.project.enums;
  */
 public enum Status {
     DEALER_BLACKJACK(100), GAMBLER_BLACKJACK(100), DEALER_BUST(1), 
-    GAMBLER_BUST(0), FACE_VALUE;
+    GAMBLER_BUST(0), HAND_VALUE;
     
     private int _score;
     
