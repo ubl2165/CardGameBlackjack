@@ -54,7 +54,7 @@ public class Validator {
         }
         
         if(name.toUpperCase().equals("DEALER")) {
-            result = false;
+            
             throw new IllegalArgumentException("You can't use name of Dealer.");
             
         }
@@ -250,7 +250,7 @@ public class Validator {
     }
     
     
-        /**
+   /**
      * Method to check if the int is in the range. min and max can switch
      * places if min is greater max by input error.
      *

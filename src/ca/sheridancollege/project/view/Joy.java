@@ -8,12 +8,12 @@ package ca.sheridancollege.project.view;
 import java.util.Random;
 
 /**
- *
+ * A enumeration class to describe the happy emotions
  * @author Ji Li
  */
 public enum Joy {
-    TEAR(" wipes off the sweet tears!"),
-    SMILE(" grins wildly!"),
+    GRIN(" grins wildly!"),
+    SMILE(" tries to hide the smile!"),
     JUMP(" jumps in the air!"), 
     LARGH(" larghs out loud!"),
     KISS(" throws kisses passionately!"),
@@ -28,10 +28,18 @@ public enum Joy {
     this.action = action;
     }
     
+    /**
+     * Getter
+     * @return 
+     */
     private String getAction() {
         return this.action;
     }
     
+    /**
+     * 
+     * @return emotion randomly
+     */
     public static String beHappy() {
      Random randomChoice = new Random();
      

@@ -12,14 +12,16 @@ import ca.sheridancollege.project.model.basecode.Player;
 import ca.sheridancollege.project.model.enums.Result;
 import ca.sheridancollege.project.model.enums.Status;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
- * This class represents the view part of the MVC model. It is in charge of the
- * user prompting and user data input.
+ * This class represents the User Interface (view) part of the MVC model. 
+ * It is in charge of the user input prompting and narratives.
  *
  * @author Ji Li
+ * @version 2.0 2021 April
  */
 public class GameUI {
 
@@ -28,26 +30,31 @@ public class GameUI {
      */
     private Scanner input;
     private Validator validator;
-
+    
+    /**
+     * Constructor
+     */
     public GameUI() {
 
         input = new Scanner(System.in);
         validator = new Validator();
     }
 
+    /**
+     * A method to prompt new player
+     * @return ArrayList of new Player
+     */
     public ArrayList<Player> addPlayersPrompt() {
 
         ArrayList<Player> gamblers = new ArrayList<>();
-        char answer;
+        boolean answer;
 
         do {
             System.out.println("what is new player's name?");
-            
+
             boolean tryAgain = true;
 
             while (tryAgain) {
-
-                
 
                 String name = input.nextLine();
 
@@ -78,15 +85,21 @@ public class GameUI {
 
             }
 
-            System.out.println("Another player? Yes/No");
+            System.out.println("Another player?");
+            System.out.println("1. Yes\n2. No");
 
-            answer = input.nextLine().toUpperCase().charAt(0);
+            answer = choseYes();
 
-        } while (answer == 'Y');
+        } while (answer);
 
         return gamblers;
     }
-
+    
+    /**
+     * A method to prompt betting
+     * @param gambler
+     * @return chips to bet which is a double type
+     */
     public double bettingPrompt(Gambler gambler) {
 
         double bet = 0;
@@ -131,6 +144,10 @@ public class GameUI {
         return bet;
     }
 
+    /**
+     * A method to prompt how many set of cards to play. 
+     * @return sets of card integer type
+     */
     public int setOfCardsPrompt() {
 
         int sets = 1;
@@ -171,26 +188,43 @@ public class GameUI {
         return sets;
     }//end of setOfCardsPrompt method
 
+    /**
+     * A method to print the dealing card narrative.
+     */
     public void dealCardsAnnoucement() {
 
         System.out.println("Betting is over. \n Dealer deals cards.");
         System.out.println("-----------------------------");
     }
 
+    /**
+     * A method to display the full hand with value.
+     * @param player 
+     */
     public void displayFullHand(Player player) {
         System.out.println(player.getName() + "'s hand: " + player.getHand().getCards().toString());
         System.out.println("Value: " + player.getHand().getHandValue());
-        System.out.println("-----------------------------");
+        
     }
 
+    /**
+     * A method to display Dealer's one card concealed hand.
+     * @param dealer 
+     */
     public void displayConsealedHand(Dealer dealer) {
 
         System.out.println("Dealer's hand: "
                 + dealer.getHand().getCards().get(0).toString() + " Folded Card");
-        System.out.println("-----------------------------");
+        
 
     }
 
+    /**
+     * A method to declare the winner according to result.
+     * @param dealer
+     * @param gambler
+     * @param result 
+     */
     public void declareWinner(Dealer dealer, Gambler gambler, Result result) {
 
         System.out.println("\n-------------------------------");
@@ -206,32 +240,40 @@ public class GameUI {
                 System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
                 System.out.println("Winner is: " + gambler.getName());
                 System.out.println(gambler.getName() + Joy.beHappy());
-                System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+                System.out.println();
                 break;
             case YouLost:
                 System.out.println("############################");
                 System.out.println("Dealer won");
                 System.out.println(gambler.getName() + Sadness.feelingDown());
-                System.out.println("############################");
+                System.out.println();
                 break;
             case Tie:
                 System.out.println("===============================");
                 System.out.println("It is a Push(Tie), everybody wins.");
-                System.out.println("===============================");
+                System.out.println();
 
         }
 
     }//end of declareWinner
 
+    /**
+     * A method to display how many chips left in the gambler's hand.
+     * @param gambler 
+     */
     public void displayChipsInHand(Gambler gambler) {
 
         System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
         System.out.println(gambler.getName() + " remaining chips are : "
                 + gambler.getChips().getChipsInPocket());
-        System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+
 
     }
 
+    /**
+     * A method to print out title of which player start to play.
+     * @param player 
+     */
     public void displayPlaySceneTitle(Player player) {
 
         System.out.println();
@@ -239,6 +281,12 @@ public class GameUI {
 
     }
 
+    /**
+     * A method to display the result of each game according to the 
+     * Status enumeration.
+     * @param status
+     * @param player 
+     */
     public void displayGamblerResult(Status status, Player player) {
 
         switch (status) {
@@ -259,85 +307,56 @@ public class GameUI {
 
     }
 
-    public int gameChoicePrompt() {
-        int choice = 0;
+    /**
+     * A method to prompt gambler to choose between hit and stand.
+     * @return 
+     */
+    public boolean gameChoicePrompt() {
 
-        System.out.println("Hit or Stand?\n1. Hit\n2. stand");
+        System.out.println("Hit or Stand?");
+        System.out.println("1. Hit\n2. Stand");
 
-        boolean tryAgain = true;
-        while (tryAgain) {
-            try {
-                String in = input.nextLine();
-                if (validator.isNotEmptyOrNull(in)
-                        && validator.isValidInteger(in)
-                        && validator.isInTheRange(Integer.parseInt(in), 1, 2)) {
+        boolean choice = choseYes();
 
-                    choice = Integer.parseInt(in);
-                    tryAgain = false;
-
-                }
-
-            } catch (NumberFormatException ex) {
-                System.err.println("Error: " + ex.getMessage());
-
-            } catch (InputMismatchException ex) {
-
-                System.err.println("Error: Please enter a number");
-
-            } catch (IllegalArgumentException ex) {
-                System.err.println("Error: " + ex.getMessage());
-            }
-        }
         return choice;
     }
 
-    public int doubleDownPrompt(double bet, double fund, Gambler gambler) {
+    /**
+     * A method to prompt the User to bet double down.
+     * @param bet
+     * @param fund
+     * @param gambler
+     * @return 
+     */
+    public boolean doubleDownPrompt(double bet, double fund, Gambler gambler) {
 
-        int choice = 0;
+        boolean choice;
 
         if (bet > fund) {
 
             System.out.printf("%s's bet is %.1f \n", gambler.getName(), bet);
             System.out.printf("%s's remaining chips are: %.1f\n", gambler.getName(), fund);
             System.out.println("Sorry, Not enough chips to do double down.");
+            choice = false;
 
         } else {
 
             System.out.println("Double down? ");
 
-            System.out.println("Double the initial bet, but you have to hit one and only one more card.");
-
+            System.out.println("Double the initial bet, but you have to hit one "
+                    + "and only one more card.");
             System.out.println("1. Yes\n2. No");
-
-            boolean tryAgain = true;
-            while (tryAgain) {
-                try {
-                    String in = input.nextLine();
-                    if (validator.isNotEmptyOrNull(in)
-                            && validator.isValidInteger(in)
-                            && validator.isInTheRange(Integer.parseInt(in), 1, 2)) {
-
-                        choice = Integer.parseInt(in);
-                        tryAgain = false;
-                    }
-
-                } catch (NumberFormatException ex) {
-                    System.err.println("Error: " + ex.getMessage());
-
-                } catch (InputMismatchException ex) {
-
-                    System.err.println("Error: Please enter a number");
-
-                } catch (IllegalArgumentException ex) {
-                    System.err.println("Error: " + ex.getMessage());
-                }
-            }
-
+            choice = choseYes();
         }
 
         return choice;
     }
 
+    /**
+     * A method to display dealer's playing result.
+     * @param status
+     * @param dealer 
+     */
     public void displayDealerResult(Status status, Dealer dealer) {
 
         switch (status) {
@@ -349,35 +368,158 @@ public class GameUI {
                 System.out.println("***********Dealer got a Bust!!!***********");
                 break;
             case HAND_VALUE:
-                System.out.printf("***********Dealer's hand: %d. He can not hit anymore.***********\n", dealer.getHand().getHandValue());
+                System.out.printf("***********Dealer's hand: %d. He can not hit "
+                        + "anymore.***********\n", dealer.getHand().getHandValue());
 
         }
     }
 
+    
+    /**
+     * A method to dealer hitting cards until 17.
+     * @param dealer 
+     */
     public void displayDealerHittingCard(Dealer dealer) {
 
-        System.out.printf("*******Dealer's hand: %d, less than 17************\n", dealer.getHand().getHandValue());
+        System.out.printf("*******Dealer's hand: %d, less than 17************\n",
+                 dealer.getHand().getHandValue());
         System.out.println("*******He has to hit another card************");
-        displayInterlude(100);
+        
 
     }
 
+    /**
+     * A playful method to display gaps in between console screen.
+     * @param timeInMilliSecond 
+     */
     public void displayInterlude(int timeInMilliSecond) {
 
-        int timeToWait = 10; //
+        int timeToWait = 10; 
 
         try {
             for (int i = 0; i < timeToWait; i++) {
-                
+
                 //timeInMilliSecond / 1000 * timeToWait =  second to wait
                 Thread.sleep(timeInMilliSecond);
-                
+
                 System.out.println(".");
+
             }
         } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
             System.out.println("Eorro: " + ex.getMessage());
         }
+//
+//        System.out.println("Press enter to continue...");
+//        try{
+//            System.in.read();
+//        }catch (Exception ex){
+//            System.out.println("Eorro: " + ex.getMessage());
+//        }
+//        
+    }
+
+    /**
+     * A method to say Game over.
+     */
+    public void announceGameOver() {
+
+        System.out.println("Game Over");
+
+    }
+
+    /**
+     * A method to announce a player left the game due to out of chips.
+     * @param gambler 
+     */
+    public void announceDeparture(Gambler gambler) {
+
+        System.out.println(gambler.getName() + " got no more chips left.");
+        System.out.println(gambler.getName() + Sadness.feelingDown());
+        System.out.println(gambler.getName() + " left the game.");
+
+    }
+
+    /**
+     * A method to display players left on the game table.
+     * @param players 
+     */
+    public void announcePlayersOnTheTable(ArrayList<Player> players) {
+
+        System.out.println("Players stay on the table: " + Arrays.toString(players.toArray()));
+        System.out.println();
+        System.out.println();
+    }
+
+    /**
+     * A method to prompt surviving players to continue play.
+     * @param player
+     * @return 
+     */
+    public boolean continuePlayingPrompt(Player player) {
+
+        boolean result = false;
+        if (player instanceof Gambler) {
+
+            System.out.println(player.getName() + ", would you like to continue playing?");
+            System.out.println("1. Yes\n2. No");
+            result = choseYes();
+        }
+        
+        if(player != null)
+            System.out.println(result
+                ? (player.getName() + " believes winning big next round.")
+                : (player.getName() + " quits."));
+
+        return result;
+
+    }
+
+    /**
+     * A useful method to choose between two options: yes or no.
+     * User can type "yes", "y" or "1" for yes, case insensitive.
+     * User can input "No", "n" or "2" for no, case insensitive.
+     * @return 
+     */
+    private boolean choseYes() {
+
+        int choice = 0;
+
+//        System.out.println("1. Yes\n2. No");
+        boolean tryAgain = true;
+        while (tryAgain) {
+            try {
+                String in = input.nextLine();
+
+                if (in.equalsIgnoreCase("yes") || in.equalsIgnoreCase("y")) {
+
+                    choice = 1;
+                    tryAgain = false;
+                } else if (in.equalsIgnoreCase("No") || in.equalsIgnoreCase("n")) {
+
+                    choice = 2;
+                    tryAgain = false;
+
+                } else if (validator.isNotEmptyOrNull(in)
+                        && validator.isValidInteger(in)
+                        && validator.isInTheRange(Integer.parseInt(in), 1, 2)) {
+
+                    choice = Integer.parseInt(in);
+                    tryAgain = false;
+                }
+            } catch (NumberFormatException ex) {
+                System.err.println("Error: " + ex.getMessage());
+
+            } catch (InputMismatchException ex) {
+
+                System.err.println("Error: Please enter a number");
+
+            } catch (IllegalArgumentException ex) {
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }//end of while
+
+        return choice == 1;
 
     }
 

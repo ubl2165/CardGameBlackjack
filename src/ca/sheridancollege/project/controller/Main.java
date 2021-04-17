@@ -1,8 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+
 package ca.sheridancollege.project.controller;
 
 import ca.sheridancollege.project.model.basecode.Player;
@@ -12,8 +9,9 @@ import java.util.ArrayList;
 
 
 /**
- *
+ * Entry class for the  project.
  * @author Ji Li
+ * @version 2.0 2021 April
  */
 public class Main {
 

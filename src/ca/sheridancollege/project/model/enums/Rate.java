@@ -1,7 +1,8 @@
 package ca.sheridancollege.project.model.enums;
 
 /**
- *An enumeration to define Blackjack Winning Rate
+ * An enumeration to define Blackjack Winning Rate.
+ * used in calculating the chips after game.
  * @author Ji Li 2021 March
  */
 public enum Rate {

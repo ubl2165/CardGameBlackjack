@@ -13,6 +13,7 @@ import java.util.ArrayList;
  *
  * @author dancye
  * @author Paul Bonenfant Jan 2020
+ * @author Ji Li 2021 April
  */
 public abstract class Game {
 
@@ -25,6 +26,7 @@ public abstract class Game {
     }
 
     /**
+     * Getter for name
      * @return the name
      */
     public String getName() {
@@ -32,19 +34,14 @@ public abstract class Game {
     }
 
     /**
-     * @return the players of this game
+     * Getter for the player list
+     * @return the players of this game as ArrayList
      */
     public ArrayList<Player> getPlayers() {
         return players;
     }
 
-    /**
-     * @param players the players of this game
-     */
-    public void setPlayers(ArrayList<Player> players) {
-        this.players = players;
-    }
-
+ 
     /**
      * Play the game. This might be one method or many method calls depending on your game.
      */

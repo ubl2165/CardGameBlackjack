@@ -8,7 +8,7 @@ package ca.sheridancollege.project.view;
 import java.util.Random;
 
 /**
- *
+ *  A enumeration class to describe the sad emotions
  * @author Ji Li
  */
 public enum Sadness {
@@ -27,11 +27,19 @@ public enum Sadness {
 
         this.feeling = action;
     }
-
+    
+    /**
+     * Getter
+     * @return 
+     */
     private String getFeeling() {
         return this.feeling;
     }
-
+    
+    /**
+     * method to return emotion randomly
+     * @return emotion randomly
+     */
     public static String feelingDown() {
         Random randomChoice = new Random();
 

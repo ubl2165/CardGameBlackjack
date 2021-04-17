@@ -2,17 +2,17 @@ package ca.sheridancollege.project.model;
 
 import ca.sheridancollege.project.model.basecode.Card;
 import ca.sheridancollege.project.model.basecode.GroupOfCards;
-import java.util.ArrayList;
+
 
 /**
- * A class for cards on hand
+ * A class representing cards on hand.
  * @author Ji Li 2021 March
  */
 public class Hand extends GroupOfCards {
 
     /**
      * Fields.
-     * _numberOfAce for compute
+     * 
      */
     private int numberOfAce;
     private int handValue;
@@ -34,7 +34,7 @@ public class Hand extends GroupOfCards {
      * Method to add card to hand from deck.
      * Working with distributeCard() in Deck class.
      * Each time a card added, automatically compute the hand value.
-     * @param card 
+     * 
      */
     public void addCard() {
         
@@ -88,6 +88,17 @@ public class Hand extends GroupOfCards {
      */
     public int getHandValue() {
         return handValue;
+    }
+    
+    
+    /**
+     * A method to clear all cards in hand and set number of Aces back to zero.
+     */
+    public void washHand(){
+    
+        getCards().clear();
+        this.numberOfAce = 0;
+    
     }
 
 

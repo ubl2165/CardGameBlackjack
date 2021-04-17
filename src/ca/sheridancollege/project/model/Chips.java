@@ -3,15 +3,11 @@ package ca.sheridancollege.project.model;
 import ca.sheridancollege.project.model.enums.Rate;
 
 /**
- *A class define Betting token or chips.
- * @author Ji Li
+ * A class defines Betting token or chips and its associated actions.
+ * @author Ji Li 2021 April
  */
 
 public class Chips {
-    
-
-    
-    
     
     /**
      * Field
@@ -20,8 +16,7 @@ public class Chips {
     private double chipsInPocket;
     private double bet;
     private Rate winningRate;
-    
-    
+   
     
     /**
      * Constructor
@@ -42,14 +37,6 @@ public class Chips {
     
     public void betChips(double chipsToBet){
         
-//        if(chipsToBet > this.chipsInPocket) {
-//            throw new IllegalArgumentException("Insufficent Fund.");
-//        }else if( chipsToBet <= 0){
-//            throw new IllegalArgumentException("Bet must be greater than 0");
-//        }else{
-//            this.chipsInPocket -= chipsToBet; 
-//            this.bet = chipsToBet;
-//        }
 
             this.chipsInPocket -= chipsToBet; 
             this.bet += chipsToBet;
@@ -60,7 +47,11 @@ public class Chips {
      * plus get the bet back.
      */
     public void computeChips( ) {
+        
         this.chipsInPocket += (1 + this.winningRate.getRate()) * this.bet;
+        
+        //reset the bet to zero
+        this.bet = 0;
     
     }
     
@@ -72,18 +63,19 @@ public class Chips {
         return chipsInPocket;
     }
    
-    /**
-     * Setter for chipsInPocket
-     * @param chipsInPocket 
-     */
-    public void setChipsInPocket(double chipsInPocket) {
-        this.chipsInPocket = chipsInPocket;
-    }
 
+    /**
+     * Setter for WinningRate 
+     * @param winningRate 
+     */
     public void setWinningRate(Rate winningRate) {
         this.winningRate = winningRate;
     }
-
+    
+    /**
+     * Getter for bet
+     * @return 
+     */
     public double getBet() {
         return bet;
     }

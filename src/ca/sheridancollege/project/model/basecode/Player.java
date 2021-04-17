@@ -1,4 +1,4 @@
-/**
+/*
  * SYST 17796 Project Base code.
  * Students can modify and extend to implement their game.
  * Add your name as an author and the date!
@@ -6,7 +6,6 @@
 package ca.sheridancollege.project.model.basecode;
 
 import ca.sheridancollege.project.model.BlackjackRules;
-import ca.sheridancollege.project.model.Deck;
 import ca.sheridancollege.project.model.Hand;
 
 /**
@@ -15,12 +14,12 @@ import ca.sheridancollege.project.model.Hand;
  *
  * @author dancye
  * @author Paul Bonenfant Jan 2020
+ * @author Ji Li 2021 April
  */
 public abstract class Player implements BlackjackRules{
 
     private String name; //the unique name for this player
-    private Hand hand;
-//    public Deck deck = Deck.getDeck();
+    private Hand hand;//represent the card in each player's hand
 
     /**
      * A constructor that allows you to set the player's unique ID
@@ -31,52 +30,42 @@ public abstract class Player implements BlackjackRules{
         this.name = name;
         this.hand = new Hand(0);
     }
-
+    
+    /**
+     * Getter for hand 
+     * @return  hand the Hand Type
+     */
     public Hand getHand() {
         return hand;
     }
 
-    public void setHand(Hand hand) {
-        this.hand = hand;
+    
+    /**
+     * Overriding toString method to return the player's name.
+     * @return 
+     */
+    @Override
+    public String toString () {
+    
+        return name;
+    
     }
-    
-    
-
-
-
-//    public Deck getDeck() {
-//        return _deck;
-//    }
-//
-//    public void setDeck(Deck _deck) {
-//        this._deck = _deck;
-//    }
-//    
-    
 
     
     
     /**
+     * Getter for name
      * @return the player name
      */
     public String getName() {
         return name;
     }
 
-    /**
-     * Ensure that the playerID is unique
-     *
-     * @param name the player name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-    
     
      /**
      * This method check if it is Blackjack only when first two cards are dealt.
      *
-     * @return Boolean value
+     * @return true if is blackjack.
      */
     @Override
     public boolean isBlackjack() {
@@ -89,7 +78,7 @@ public abstract class Player implements BlackjackRules{
     /**
      * This method check if sum of card value over 21.
      *
-     * @return Boolean value
+     * @return true if bust.
      */
     @Override
     public boolean isBust() {

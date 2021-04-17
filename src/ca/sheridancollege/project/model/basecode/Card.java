@@ -11,6 +11,8 @@ package ca.sheridancollege.project.model.basecode;
  * game. Students wishing to add to the code should remember to add themselves as a modifier.
  *
  * @author dancye
+ * @author Ji Li
+ * @version 2.0 2021 April
  */
 public abstract class Card {
     //default modifier for child classes

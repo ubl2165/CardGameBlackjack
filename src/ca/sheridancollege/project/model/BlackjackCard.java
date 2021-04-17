@@ -14,14 +14,14 @@ public class BlackjackCard extends Card {
     public enum Suit {
         HEARTS("hearts"), CLUBS("clubs"), SPADES("spades"), DIAMONDS("diamonds");
 
-        private String _suitName;
+        private String suitName;
 
         Suit(String name) {
-            this._suitName = name;
+            this.suitName = name;
         }
 
         public String getSuitName() {
-            return this._suitName;
+            return this.suitName;
         }
 
     }
@@ -35,34 +35,34 @@ public class BlackjackCard extends Card {
         FIVE("5", 5), SIX("6", 6), SEVEN("7", 7), EIGHT("8", 8), NINE("9", 9),
         TEN("10", 10), JACK("jack", 10), QUEEN("queen", 10), KING("king", 10);
 
-        private String _valueName;
-        private int _cardValue;
-        private int _alternativeValue;
+        private String valueName;
+        private int cardValue;
+        private int alternativeValue;
 
         Value(String name, int cardValue) {
-            this._valueName = name;
-            this._cardValue = cardValue;
-            this._alternativeValue = -100;//for test and debug only
+            this.valueName = name;
+            this.cardValue = cardValue;
+            this.alternativeValue = -100;//for test and debug only
         }
 
         Value(String name, int cardValue, int alternativeValue) {
 
-            this._valueName = name;
-            this._cardValue = cardValue;
-            this._alternativeValue = alternativeValue;
+            this.valueName = name;
+            this.cardValue = cardValue;
+            this.alternativeValue = alternativeValue;
 
         }
 
         public String getValueName() {
-            return _valueName;
+            return valueName;
         }
 
         public int getCardValue() {
-            return _cardValue;
+            return cardValue;
         }
 
         public int getAlternativeValue() {
-            return _alternativeValue;
+            return alternativeValue;
         }
 
     }

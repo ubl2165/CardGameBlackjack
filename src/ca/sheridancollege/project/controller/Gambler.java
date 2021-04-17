@@ -5,16 +5,18 @@ import ca.sheridancollege.project.model.enums.Status;
 import ca.sheridancollege.project.model.basecode.Player;
 import ca.sheridancollege.project.view.GameUI;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
-import sun.jvmstat.monitor.event.HostEvent;
+
 
 /**
  *
  * This class to define Gambler class, the actual player of Blackjack Game.
+ * 
+ * Each gambler starts with 1000 chips.
+ * 
  * Extents Player class.
  *
- * @author Ji Li 2021 March
+ * @author Ji LI
+ * @version 2.0 2021 April
  */
 public class Gambler extends Player {
 
@@ -25,25 +27,27 @@ public class Gambler extends Player {
 //    private Deck _deck;
     private Status status;//for deciding winner
     private Chips chips;
-    private Scanner input;
     private GameUI hostess = new GameUI();
 
     /**
      * Constructor
-     *
+     * Set each gambler starts with 1000 chips
      * @param name
      *
      */
     public Gambler(String name) {
         super(name);
-//        this._hand = new Hand(0);
+        
+        //Set each gambler starts with 1000 chips
         chips = new Chips(1000);
 
-        input = new Scanner(System.in);
-//        this.chips.setFund(10);//set initial fund to 10 chips 
-
     }
-
+    
+    /**
+     * Constructor
+     * @param name String
+     * @param numberOfChips  Chips number
+     */
     public Gambler(String name, double numberOfChips) {
 
         super(name);
@@ -53,11 +57,15 @@ public class Gambler extends Player {
     }
 
     /**
-     * This method applies Player(gambler)'s rules to play in Blackjack. 1. If
-     * gambler gets Blackjack at beginning, player gets score 100 only less than
-     * the dealer's blackjack score. 2. If gambler gets bust, gambler gets -1
-     * score, less than dealer's bust. 3. Gambler can choose hit or stand when
-     * is not bust.
+     * This method applies Player(gambler)'s rules to play in Blackjack. 
+     * 1. If gambler gets Blackjack at beginning, player gets score 100 
+     * same as the dealer's blackjack score. 
+     * 2. If gambler gets bust, gambler gets 0 score, less than dealer's bust 1.
+     * according to casino's rule.
+     * 3. Gambler can choose hit or stand when is not bust.
+     * 4. After initial two cards dealt, if Gambler has enough fund, he can 
+     * chooses to put double the original bets, and automatically be dealt one
+     * and only one more card.
      *
      */
     @Override
@@ -72,7 +80,7 @@ public class Gambler extends Player {
             this.status = Status.GAMBLER_BLACKJACK;
         } else if (this.isBust()) {
 
-            //set dealer's bust score to 0, greater than player's bust
+            //set dealer's bust score to 1, greater than player's bust
             this.status = Status.GAMBLER_BUST;
         } else {
 
@@ -82,7 +90,7 @@ public class Gambler extends Player {
             //check how much is the bet
             double bet = this.getChips().getBet();
 
-            if (hostess.doubleDownPrompt(bet, fund, this) == 1) {
+            if (hostess.doubleDownPrompt(bet, fund, this) ) {
 
                 this.chips.betChips(bet);
                 this.getHand().addCard();
@@ -101,7 +109,7 @@ public class Gambler extends Player {
 
                 do {
 
-                    answer = hostess.gameChoicePrompt();
+                    answer = hostess.gameChoicePrompt() ? 1: 2;
 
                     switch (answer) {
 
@@ -148,6 +156,18 @@ public class Gambler extends Player {
      */
     public Chips getChips() {
         return chips;
+    }
+    
+    /**
+     * Overriding toString method with detail of chipsInPockets.
+     * @return String
+     */
+    @Override
+    public String toString () {
+    
+        return super.toString() + " with " + this.getChips().getChipsInPocket() 
+                + " chips";
+    
     }
 
 }

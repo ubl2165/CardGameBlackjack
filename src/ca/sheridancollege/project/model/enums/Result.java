@@ -6,7 +6,7 @@
 package ca.sheridancollege.project.model.enums;
 
 /**
- *
+ * An enumeration to define the result of each game.
  * @author Ji Li
  */
 public enum Result {
