@@ -75,10 +75,10 @@ public class Gambler extends Player {
 
         hostess.displayFullHand(this);
 
-        if (this.isBlackjack()) {
+        if (this.getHand().isBlackjack()) {
 
             this.status = Status.GAMBLER_BLACKJACK;
-        } else if (this.isBust()) {
+        } else if (this.getHand().isBust()) {
 
             //set dealer's bust score to 1, greater than player's bust
             this.status = Status.GAMBLER_BUST;
@@ -95,7 +95,7 @@ public class Gambler extends Player {
                 this.chips.betChips(bet);
                 this.getHand().addCard();
 
-                if (this.isBust()) {
+                if (this.getHand().isBust()) {
 
                     this.status = Status.GAMBLER_BUST;
                 } else {
@@ -117,7 +117,7 @@ public class Gambler extends Player {
 
                             this.getHand().addCard();
 
-                            if (this.isBust()) {
+                            if (this.getHand().isBust()) {
 
                                 this.status = Status.GAMBLER_BUST;
                             } else {

@@ -25,7 +25,7 @@ public class BlackjackGame extends Game {
     private Deck deck = Deck.getDeck();
     private int setOfCards;
     private Dealer dealer = new Dealer("DEALER");
-    private ArrayList<Player> players = new ArrayList<>();
+//    private ArrayList<Player> players = new ArrayList<>();
     private GameUI hostess = new GameUI();
 
     /**
@@ -41,8 +41,9 @@ public class BlackjackGame extends Game {
         super(name);
 
         //First gamblers join the player list, then followed by dealer
-        players.addAll(gamblers);
-        players.add(dealer);
+        getPlayers().addAll(gamblers);
+//        players.add(dealer);
+        getPlayers().add(dealer);
        
         this.setOfCards = setOfCards;
 
@@ -93,7 +94,7 @@ public class BlackjackGame extends Game {
             deck.shuffle();
 
             //Game Start: First Each Gambler place a bet except Dealer.
-            for (Player player : players) {
+            for (Player player : getPlayers()) {
 
                 if (player instanceof Gambler) {
 
@@ -111,12 +112,12 @@ public class BlackjackGame extends Game {
             //devide the text
             hostess.displayInterlude(50);
             
-            dealer.deal(players);
+            dealer.deal(getPlayers());
 
 
             //Thirdly, everybody starts to play out one by one, 
             //dealer is the last turn.
-            for (Player player : players) {
+            for (Player player : getPlayers()) {
 
                 if (player instanceof Gambler) {
                     
@@ -135,12 +136,12 @@ public class BlackjackGame extends Game {
             declareWinner();
             
             //re-group the player list
-            reListPlayers(players);
+            reListPlayers(getPlayers());
             
             //display players stayed.
-            hostess.announcePlayersOnTheTable(players);
+            hostess.announcePlayersOnTheTable(getPlayers());
 
-        } while (players.size() > 1);//if only dealer in the list, out of loop
+        } while (getPlayers().size() > 1);//if only dealer in the list, out of loop
         
         // if only Dealer in the list, game over
         hostess.announceGameOver();
@@ -167,7 +168,7 @@ public class BlackjackGame extends Game {
 
         }
 
-        for (Player player : players) {
+        for (Player player : getPlayers()) {
 
             if (player instanceof Gambler) {
 
@@ -226,7 +227,7 @@ public class BlackjackGame extends Game {
                 hostess.displayChipsInHand(((Gambler) player));
                 
                 //space the text
-                hostess.displayInterlude(50);
+                hostess.displayInterlude(30);
 
             }//end of first if statment
 
