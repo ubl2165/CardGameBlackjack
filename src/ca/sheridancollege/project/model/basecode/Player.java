@@ -16,7 +16,8 @@ import ca.sheridancollege.project.model.Hand;
  * @author Paul Bonenfant Jan 2020
  * @author Ji Li 2021 April
  */
-public abstract class Player implements BlackjackRules{
+public abstract class Player {
+//public abstract class Player implements BlackjackRules{
 
     private String name; //the unique name for this player
     private Hand hand;//represent the card in each player's hand
@@ -62,29 +63,29 @@ public abstract class Player implements BlackjackRules{
     }
 
     
-     /**
-     * This method check if it is Blackjack only when first two cards are dealt.
-     *
-     * @return true if is blackjack.
-     */
-    @Override
-    public boolean isBlackjack() {
-        //return ture only player receives 21 on first and second card
-        //that means one of the two card is an Ace, and count as 11 
-        return this.hand.getHandValue() == 21
-                && this.hand.getSize() == 2;
-    }
-
-    /**
-     * This method check if sum of card value over 21.
-     *
-     * @return true if bust.
-     */
-    @Override
-    public boolean isBust() {
-
-        return this.hand.getHandValue() > 21;
-    }
+//     /**
+//     * This method check if it is Blackjack only when first two cards are dealt.
+//     *
+//     * @return true if is blackjack.
+//     */
+//    @Override
+//    public boolean isBlackjack() {
+//        //return ture only player receives 21 on first and second card
+//        //that means one of the two card is an Ace, and count as 11 
+//        return this.hand.getHandValue() == 21
+//                && this.hand.getSize() == 2;
+//    }
+//
+//    /**
+//     * This method check if sum of card value over 21.
+//     *
+//     * @return true if bust.
+//     */
+//    @Override
+//    public boolean isBust() {
+//
+//        return this.hand.getHandValue() > 21;
+//    }
 
     /**
      * The method to be overridden when you subclass the Player class with your specific type of Player and filled in

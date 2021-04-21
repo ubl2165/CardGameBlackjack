@@ -78,7 +78,7 @@ public class Dealer extends Player {
         hostess.displayFullHand(this);
 
         //first check if it is a Blackjack
-        if (this.isBlackjack()) {
+        if (this.getHand().isBlackjack()) {
 
             this.status = Status.DEALER_BLACKJACK;
 
@@ -89,7 +89,7 @@ public class Dealer extends Player {
 
                 flag = this.getHand().getHandValue();
 
-                if (this.isBust()) {
+                if (this.getHand().isBust()) {
 
                     //set deal's bust score to 0, more than gamlber's bust
                     this.status = Status.DEALER_BUST;

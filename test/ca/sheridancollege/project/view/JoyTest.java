@@ -5,6 +5,7 @@
  */
 package ca.sheridancollege.project.view;
 
+import java.util.Arrays;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -42,22 +43,23 @@ public class JoyTest {
     /**
      * Test of values method, of class Joy.
      */
-    @Ignore
     @Test
+    
     public void testValues() {
         System.out.println("values");
-        Joy[] expResult = null;
+        Joy[] expResult = {Joy.GRIN, Joy.SMILE, Joy.JUMP, Joy.LARGH, Joy.KISS,
+                           Joy.PUNCH, Joy.CHUCKLE, Joy.BRIGHTEN};
         Joy[] result = Joy.values();
         assertArrayEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+//        fail("The test case is a prototype.");
     }
 
     /**
      * Test of valueOf method, of class Joy.
      */
     @Ignore
-    @Test
+   
     public void testValueOf() {
         System.out.println("valueOf");
         String string = "";
@@ -73,18 +75,33 @@ public class JoyTest {
      */
     @Test
     public void testBeHappy() {
-        System.out.println("beHappy");
-        String expResult[] = {Joy.beHappy(), Joy.beHappy(), Joy.beHappy()};
-        String result[] = {Joy.beHappy(), Joy.beHappy(), Joy.beHappy()};
+        System.out.println("beHappy method testing: ");
         
-        Assert.assertArrayEquals(expResult, result);
+        Joy arr[] = Joy.values();
+                        
+        String arrByBeHappy1[] = new String[arr.length];
+        String arrByBeHappy2[] = new String[arr.length];
         
-        boolean expResult1 = false;
+        for(int i = 0; i < arr.length; i++){
+            
+            arrByBeHappy1[i] = Joy.beHappy();
+            arrByBeHappy2[i] = Joy.beHappy();
+            
+           
+        }
+        
+        
+        
+        boolean expResult = false;
+        boolean result = Arrays.equals(arrByBeHappy1, arrByBeHappy2);
+        
+        Assert.assertEquals(expResult, result);
+        
         
 
 
 // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+//        fail("The test case is a prototype.");
     }
     
 }

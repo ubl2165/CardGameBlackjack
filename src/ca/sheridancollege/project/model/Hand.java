@@ -8,7 +8,7 @@ import ca.sheridancollege.project.model.basecode.GroupOfCards;
  * A class representing cards on hand.
  * @author Ji Li 2021 March
  */
-public class Hand extends GroupOfCards {
+public class Hand extends GroupOfCards implements BlackjackRules {
 
     /**
      * Fields.
@@ -98,7 +98,33 @@ public class Hand extends GroupOfCards {
     
         getCards().clear();
         this.numberOfAce = 0;
+        this.handValue = 0;
+        this.setSize(0);
     
+    }
+    
+    /**
+     * This method check if it is Blackjack only when first two cards are dealt.
+     *
+     * @return true if is blackjack.
+     */
+    @Override
+    public boolean isBlackjack() {
+        //return ture only player receives 21 on first and second card
+        //that means one of the two card is an Ace, and count as 11 
+        return this.handValue == 21
+                && this.getSize() == 2;
+    }
+
+    /**
+     * This method check if sum of card value over 21.
+     *
+     * @return true if bust.
+     */
+    @Override
+    public boolean isBust() {
+
+        return this.handValue > 21;
     }
 
 
